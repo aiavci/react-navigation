@@ -4,7 +4,7 @@
 
 import React from 'react';
 
-import { Animated, Platform, StyleSheet, View } from 'react-native';
+import { Animated, Platform, StyleSheet, View, BackHandler } from 'react-native';
 
 import HeaderTitle from './HeaderTitle';
 import HeaderBackButton from './HeaderBackButton';
@@ -78,7 +78,10 @@ class Header extends React.PureComponent<void, HeaderProps, HeaderState> {
   }
 
   _navigateBack = () => {
-    this.props.navigation.goBack(null);
+    //Add check to see if navigation failed due to Android OS. If so, exit app.
+    if(!this.props.navigation.goBack(null)) {
+      BackHandler.exitApp();
+    }
   };
 
   _renderTitleComponent = (props: SceneProps): ?React.Element<*> => {
@@ -121,7 +124,7 @@ class Header extends React.PureComponent<void, HeaderProps, HeaderState> {
     if (typeof options.headerLeft !== 'undefined') {
       return options.headerLeft;
     }
-    if (props.scene.index === 0) {
+    if (Platform.OS === 'ios' && props.scene.index === 0) {
       return null;
     }
     const backButtonTitle = this._getBackButtonTitleString(props.scene);

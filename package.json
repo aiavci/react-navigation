@@ -1,7 +1,7 @@
 {
-  "name": "react-navigation",
+  "name": "react-navigation-forked-for-android",
   "version": "1.0.0-beta.12",
-  "description": "React Navigation",
+  "description": "React Navigation Forked For Android",
   "main": "src/react-navigation.js",
   "sources": {
     "react-native-v1": "lib-rn/react-navigation.js",
@@ -10,7 +10,7 @@
   "module": "lib/react-navigation.web.js",
   "webpack": "lib/react-navigation.web.js",
   "repository": {
-    "url": "git@github.com:react-community/react-navigation.git",
+    "url": "git@github.com:aiavci/react-navigation.git",
     "type": "git"
   },
   "author": "Adam Miskiewicz <adam@sk3vy.com>",
