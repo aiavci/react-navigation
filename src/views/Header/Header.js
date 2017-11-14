@@ -4,7 +4,7 @@
 
 import React from 'react';
 
-import { Animated, Platform, StyleSheet, View, BackHandler } from 'react-native';
+import { Animated, Platform, StyleSheet, View, BackHandler, NativeModules } from 'react-native';
 
 import HeaderTitle from './HeaderTitle';
 import HeaderBackButton from './HeaderBackButton';
@@ -79,7 +79,13 @@ class Header extends React.PureComponent<void, HeaderProps, HeaderState> {
 
   _navigateBack = () => {
     //Add check to see if navigation failed due to Android OS. If so, exit app.
-    if(!this.props.navigation.goBack(null)) {
+    if(this.props.navigation.goBack(null)) {
+      return;
+    }
+
+    if (Platform.OS === 'ios') {
+      NativeModules.ScreenShifter.enableSmallScreen();
+    } else {
       BackHandler.exitApp();
     }
   };
@@ -124,9 +130,10 @@ class Header extends React.PureComponent<void, HeaderProps, HeaderState> {
     if (typeof options.headerLeft !== 'undefined') {
       return options.headerLeft;
     }
-    if (Platform.OS === 'ios' && props.scene.index === 0) {
-      return null;
-    }
+    // Disable for both ios and Android
+    // if (Platform.OS === 'ios' && props.scene.index === 0) {
+    //   return null;
+    // }
     const backButtonTitle = this._getBackButtonTitleString(props.scene);
     const truncatedBackButtonTitle = this._getTruncatedBackButtonTitle(
       props.scene
