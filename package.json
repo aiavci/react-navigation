@@ -1,6 +1,6 @@
 {
   "name": "react-navigation-forked-for-android",
-  "version": "1.0.0-beta.12",
+  "version": "1.0.0",
   "description": "React Navigation Forked For Android",
   "main": "src/react-navigation.js",
   "sources": {
